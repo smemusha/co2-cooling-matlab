@@ -1,0 +1,3 @@
+I have a titanium tube of an inner diameter of 2.5 mm which half-way has a U-turn of 180 degrees. Saturated CO2 enters the tube at approximatly -40°C and 10 bar. To do the thermofluidic analysis devide the tube at 36 points equally distributed throughout the tube's length (approximatly 1.5 meters) and on each point there is a titanium round plate of 20mm in diameter on top.
+
+Assume that 4 CONSECUTIVE plates are being heated each time. On each plate 5W of thermal power is applied though a solid aluminium block which has a heater wrapped around it. Calculate the heat coefficient from the block to the plate.

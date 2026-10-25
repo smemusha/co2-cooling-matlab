@@ -1,0 +1,6 @@
+*.asv
+*.mex*
+pathdef.m
+~$*
+*.xlsx
+*.csv
