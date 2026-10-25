@@ -11,8 +11,9 @@
 % Inputs : one campaign folder holding the SCADA csv files, the "Timestamps"
 %          xlsx files and lengths.xlsx (Capillary | Test length | Current length);
 %          capillary IDs are read from the timestamp files.
-% Outputs: required-length bar chart, compact summary in the Command Window
-%          and a formatted Excel report (value +/- STD in the same cell).
+% Outputs: final-length bar chart, compact summary in the Command Window,
+%          a formatted Excel report (value +/- STD in the same cell) and the
+%          cut lengths (final + STD + 150 mm) written to the lengths.xlsx files.
 clear; clc;
 
 % ================================================================
@@ -23,6 +24,8 @@ clear; clc;
 campaignFolder = 'C:\Users\smemusha\cernbox\WINDOWS\Desktop\ITk\Capilaries\Measurements\Interalloy batch\PRODUCTION\I.D_0.76\No.13-16';
 lengthsFile    = fullfile(campaignFolder, 'lengths.xlsx');   % Capillary | Test length (mm) | Current length (mm)
 reportFile     = '';   % '' = automatic name, saved in the campaign folder
+sfpFolder      = fullfile(campaignFolder, 'Single_flow_point');   % next test, at the cut lengths
+cutMargin      = 150;  % [mm] cut length = final + STD + cutMargin (at most the tested length)
 
 % BACKUP - manual windows, one row per flow step.
 % timeRanges = {
@@ -208,6 +211,9 @@ if isfile(outputFile), delete(outputFile); end   % start clean, no old formattin
 writetable(report, outputFile, 'Sheet', 'Report');
 cap_format_report(outputFile, height(report), width(report), nRows, 14, [6 8 9 10 11 13], true);   % 14 = final length
 fprintf('\nReport saved: %s\n', outputFile);
+
+%% Cut lengths for the single flow point test
+cap_write_cut_lengths(lengthsFile, sfpFolder, capillaryIDs, requiredLength, requiredLengthStd, cutMargin, testLength);
 
 %% Plot required lengths
 figure; hold on; grid on;
